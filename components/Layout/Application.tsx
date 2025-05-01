@@ -25,7 +25,7 @@ export default function Application({
   defaultValue,
   isMiddleButtonVisible,
 }: ApplicationProps) {
-  const [value, setValue] = React.useState("sqlite");
+  const [value, setValue] = React.useState(defaultValue || "sqlite");
 
   const tabs = [
     {

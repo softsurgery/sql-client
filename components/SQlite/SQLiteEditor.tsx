@@ -2,11 +2,13 @@ import React from "react";
 import { View } from "react-native";
 import * as SQLite from "expo-sqlite";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useNavigation } from "expo-router";
 import { ExmplesCard } from "./ExamplesCard";
 import { EditorCard } from "./EditorCard";
 import { ResultCard } from "./ResultCard";
 
 export const SQLiteEditor = () => {
+  const navigation = useNavigation();
   const [db, setDb] = React.useState<SQLite.SQLiteDatabase | null>(null);
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState<string[]>([]);
@@ -15,6 +17,9 @@ export const SQLiteEditor = () => {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    navigation.setOptions({
+      title: "SQLite",
+    });
     const createDatabaseConnection = async () => {
       const db = await SQLite.openDatabaseAsync("mydb.db");
       setDb(db);
@@ -68,7 +73,7 @@ export const SQLiteEditor = () => {
 
   return (
     <KeyboardAwareScrollView enableOnAndroid={true} bounces={false}>
-      <View className="flex flex-col flex-1 flex-grow gap-4 p-4 border">
+      <View className="flex flex-col flex-1 flex-grow gap-4 p-4">
         {/* Example Queries */}
         <ExmplesCard
           setQuery={(query: string) => setQuery(query)}

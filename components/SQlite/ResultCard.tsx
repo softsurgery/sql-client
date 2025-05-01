@@ -46,19 +46,15 @@ export const ResultCard = ({
           value={results?.length ? results?.join("\n") : "No results"}
         />
       </CardContent>
-      {status && (
-        <CardFooter>
-          <Text
-            defaultColors={false}
-            className={cn(
-              "font-bold",
-              isError ? "text-red-500" : "text-green-600"
-            )}
-          >
-            {status}
-          </Text>
-        </CardFooter>
-      )}
+
+      <CardFooter>
+        <Text
+          defaultColors={false}
+          className={cn(isError ? "text-red-500" : "text-green-500")}
+        >
+          {status  ? `Callstack : ${status}` : <Text> Callstack : No query is presented</Text>}
+        </Text>
+      </CardFooter>
     </Card>
   );
 };

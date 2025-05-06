@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Play } from "lucide-react-native";
+import { Play, Save, X } from "lucide-react-native";
 import {
   Card,
   CardContent,
@@ -19,7 +19,7 @@ interface EditorCardProps {
   query?: string;
   setQuery?: Function;
   runQuery?: Function;
-  clearQuery?:Function;
+  clearQuery?: Function;
   isPending?: boolean;
 }
 
@@ -43,7 +43,7 @@ export const EditorCard = ({
       </CardHeader>
       <CardContent>
         <Textarea
-          className="bg-transparent rounded-lg h-32"
+          className="bg-transparent rounded-lg h-52"
           placeholder="Enter SQL (e.g. SELECT * FROM items)"
           value={query}
           onChangeText={(value: string) => setQuery?.(value)}
@@ -51,21 +51,33 @@ export const EditorCard = ({
         />
       </CardContent>
       <CardFooter>
-        <View className="flex flex-row gap-2">
+        <View className="flex flex-row gap-2 ml-auto">
           <Button
-            onPress={() => runQuery?.()}
-            disabled={isPending}
-            className="flex-1 flex flex-row gap-2"
-          >
-            <Icon name={Play} color={"white"} size={20} />
-            <Text defaultColors={false}>Run</Text>
-          </Button>
-          <Button
-            onPress={() => clearQuery?.()}
             variant="ghost"
+            size={"icon"}
+            onPress={() => clearQuery?.()}
+            className="flex flex-row gap-2"
             disabled={isPending || query?.length === 0}
           >
-            <Text>Clear</Text>
+            <Icon name={X} size={20} />
+          </Button>
+          <Button
+            variant={"ghost"}
+            size={"icon"}
+            onPress={() => runQuery?.()}
+            disabled={isPending}
+            className="flex flex-row gap-2"
+          >
+            <Icon name={Save} size={20} />
+          </Button>
+          <Button
+            variant={"default"}
+            size={"icon"}
+            onPress={() => runQuery?.()}
+            disabled={isPending}
+            className="flex flex-row gap-2"
+          >
+            <Icon name={Play} color={"white"} size={20} />
           </Button>
         </View>
       </CardFooter>

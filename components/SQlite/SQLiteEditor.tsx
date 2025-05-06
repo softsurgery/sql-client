@@ -73,7 +73,7 @@ export const SQLiteEditor = () => {
 
   return (
     <KeyboardAwareScrollView enableOnAndroid={true} bounces={false}>
-      <View className="flex flex-col flex-1 flex-grow gap-4 p-4">
+      <View className="flex flex-col flex-1 flex-grow gap-5 p-5">
         {/* Example Queries */}
         <ExmplesCard
           setQuery={(query: string) => setQuery(query)}
@@ -89,7 +89,6 @@ export const SQLiteEditor = () => {
         />
         {/* Results and Status */}
         <ResultCard
-          className="h-[30vh]"
           results={results}
           status={status}
           isError={isError}

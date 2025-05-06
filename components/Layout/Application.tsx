@@ -2,10 +2,11 @@ import * as React from "react";
 import { Platform, View } from "react-native";
 import { Database, DatabaseZap, LifeBuoy, Plus } from "lucide-react-native";
 import { Button } from "../ui/button";
-import { Text } from "../ui/text";
 import Icon from "../ui/icon";
 import { MenuItem } from "./MenuItem";
 import { SQLiteEditor } from "../SQlite/SQLiteEditor";
+import { ConnectMySQL } from "../MySQLConnector";
+import { SqlWizardHelp } from "../SqlWizardHelp";
 import {
   Tabs,
   TabsContent,
@@ -38,13 +39,13 @@ export default function Application({
       value: "mysql",
       icon: DatabaseZap,
       title: "MySQL",
-      component: <Text className="text-xl">MySQL</Text>,
+      component: <ConnectMySQL />,
     },
     {
       value: "help",
       icon: LifeBuoy,
       title: "Help",
-      component: <Text className="text-xl">Help</Text>,
+      component: <SqlWizardHelp />,
     },
   ];
 

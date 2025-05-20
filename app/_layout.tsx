@@ -11,6 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { Platform } from "react-native";
 import { PortalHost } from "@rn-primitives/portal";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NAV_THEME } from "~/lib/styles/constants";
 import { useColorScheme } from "~/lib/styles/useColorScheme";
 import { ThemeToggle } from "~/components/ui/theme-toggle";
@@ -63,11 +64,16 @@ export default function RootLayout() {
     ? NAV_THEME.dark.foreground
     : NAV_THEME.light.foreground;
 
+  const queryClient = new QueryClient();
+
   return (
-    <ThemeProvider
-      value={(isDarkColorScheme ? DARK_THEME : LIGHT_THEME) as unknown as Theme}
-    >
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider
+        value={
+          (isDarkColorScheme ? DARK_THEME : LIGHT_THEME) as unknown as Theme
+        }
+      >
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
         <Stack>
           <Stack.Screen
             name="index"
@@ -86,8 +92,9 @@ export default function RootLayout() {
             }}
           />
         </Stack>
-      <PortalHost />
-    </ThemeProvider>
+        <PortalHost />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

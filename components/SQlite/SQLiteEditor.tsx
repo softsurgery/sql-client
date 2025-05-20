@@ -2,10 +2,13 @@ import React from "react";
 import { View } from "react-native";
 import * as SQLite from "expo-sqlite";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigation } from "expo-router";
 import { ExmplesCard } from "./ExamplesCard";
 import { EditorCard } from "./EditorCard";
 import { ResultCard } from "./ResultCard";
+import { SuggestionResponse } from "~/types/suggestions.types";
 
 export const SQLiteEditor = () => {
   const navigation = useNavigation();
@@ -71,6 +74,28 @@ export const SQLiteEditor = () => {
     setIsError(false);
   };
 
+  const { data: suggestionResp, isPending: isSuggestionPending } = useQuery({
+    queryKey: ["suggestion", query],
+    queryFn: async () => {
+      if (query) {
+        const response = await axios.post<SuggestionResponse>(
+          `${process.env.EXPO_PUBLIC_BASE_API_URL}/suggest`,
+          {
+            sql: query,
+            cursor: query.length,
+          }
+        );
+        return response.data;
+      }
+      return { suggestions: [] };
+    },
+  });
+
+  const suggestion = React.useMemo(() => {
+    if (!suggestionResp) return "";
+    return suggestionResp?.suggestions?.[0];
+  }, [suggestionResp]);
+
   return (
     <KeyboardAwareScrollView enableOnAndroid={true} bounces={false}>
       <View className="flex flex-col flex-1 flex-grow gap-5 p-5">
@@ -82,17 +107,15 @@ export const SQLiteEditor = () => {
         {/* Query Input Card */}
         <EditorCard
           isPending={loading}
+          isSuggestionPending={isSuggestionPending}
           query={query}
+          suggestion={suggestion}
           setQuery={setQuery}
           runQuery={runQuery}
           clearQuery={clearQuery}
         />
         {/* Results and Status */}
-        <ResultCard
-          results={results}
-          status={status}
-          isError={isError}
-        />
+        <ResultCard results={results} status={status} isError={isError} />
       </View>
     </KeyboardAwareScrollView>
   );

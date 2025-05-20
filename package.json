@@ -25,6 +25,7 @@
     "@rn-primitives/tabs": "^1.1.0",
     "@rn-primitives/tooltip": "~1.1.0",
     "@rn-primitives/types": "^1.1.0",
+    "@tanstack/react-query": "^5.76.1",
     "axios": "^1.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -52,7 +53,7 @@
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.4.7"
   },
-   "expo": {
+  "expo": {
     "autolinking": {
       "android": {
         "buildFromSource": [
@@ -63,8 +64,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
-    "@react-native-community/cli": "latest",
     "@eslint/js": "^9.25.1",
+    "@react-native-community/cli": "latest",
     "@types/react": "~19.0.10",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",

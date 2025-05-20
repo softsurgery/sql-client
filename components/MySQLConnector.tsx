@@ -35,12 +35,15 @@ export const ConnectMySQL = () => {
   const handleConnect = async () => {
     setLoading(true);
     setResult(null);
-    console.log(process.env.BASE_API_URL)
+    console.log(process.env.BASE_API_URL);
     try {
-      const response = await axios.post(`${process.env.BASE_API_URL}/api/v1/connect`, {
-        ...form,
-        port: Number(form.port),
-      });
+      const response = await axios.post(
+        `${process.env.EXPO_PUBLIC_BASE_API_URL}/connect`,
+        {
+          ...form,
+          port: Number(form.port),
+        }
+      );
       console.log("Response:", response.data);
       setResult({ success: true, token: response.data.token });
     } catch (err: any) {
